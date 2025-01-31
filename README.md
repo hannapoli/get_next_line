@@ -1,6 +1,7 @@
 
 norm
-tests
+tests:
+https://github.com/kodpe/gnl-station-tester
 valgrind --leak-check=full ./a.out
 del .txt, readme, a.out...
 

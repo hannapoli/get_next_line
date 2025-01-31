@@ -6,7 +6,7 @@
 /*   By: hpolishc <hpolishc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:03:47 by hpolishc          #+#    #+#             */
-/*   Updated: 2025/01/31 11:13:43 by hpolishc         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:43:43 by hpolishc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*ft_write_line(char *line)
 	if (line[len] == '\0')
 		return (0);
 	reserve = ft_substr(line, len + 1, ft_strlen(line) - len);
-	if (*reserve == '\0')
+	if ((!reserve) || (*reserve == '\0'))
 	{
 		free(reserve);
 		reserve = NULL;
@@ -77,7 +77,8 @@ char	*get_next_line(int fd)
 	}
 	if (!buffer)
 		return (NULL);
-	line = ft_read_to_buffer(fd, reserve, buffer);
+	reserve = ft_read_to_buffer(fd, reserve, buffer);
+	line = reserve;
 	free(buffer);
 	buffer = NULL;
 	if (!line)
@@ -85,6 +86,7 @@ char	*get_next_line(int fd)
 	reserve = ft_write_line(line);
 	return (line);
 }
+
 /* 
 #include <stdio.h>
 #include <fcntl.h>
@@ -106,11 +108,44 @@ int	main(void)
 	while (gnl != NULL)
 	{
 		line_count++;
-		printf("[%d]:%s\n", line_count, gnl);
+		printf("[%d]:%s", line_count, gnl);
 		free(gnl);
 		gnl = get_next_line(fd);
 	}
 	close(fd);
 	return (0);
-}
- */
+} */
+
+/* test.txt:
+
+1. Empty file.
+
+2. Only \n.
+
+3. 1 line, no \n:
+jbjfnekanrbf26744!ˆ&*((dhbsbjsd))
+
+4. 3 lines with \n:
+Here I am going to read a line.
+Another line.
+...and one more line. 
+
+5. A very long line (a lot of chars) without \n.
+
+6. A very long line (a lot of chars) with \n.
+
+7. Variable lines with \n:
+
+0123456789012345678901234567890123456789xdnds
+0123456789012345678901234567890123456789jner
+
+0123456789012345678901234567890123456789nrfbrj
+
+
+0123456789012345678901234567890123456789sajdnfr
+
+
+
+0123456789012345678901234567890123456789sBFHEW
+
+*/

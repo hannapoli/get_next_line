@@ -6,7 +6,7 @@
 /*   By: hpolishc <hpolishc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:03:51 by hpolishc          #+#    #+#             */
-/*   Updated: 2025/01/31 11:15:32 by hpolishc         ###   ########.fr       */
+/*   Updated: 2025/01/31 19:45:43 by hpolishc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-//#include <sys/types.h>
+# include <sys/types.h>
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *str);
