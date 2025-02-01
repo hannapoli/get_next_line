@@ -1,9 +1,27 @@
+<!-- TO DO:
 
-norm
-tests:
+1. tests:
 https://github.com/kodpe/gnl-station-tester
+
+and mine mains, test.txt
+
+2. leaks:
+MAC: leaks --atExit -- ./a.out
+
+Ubuntu:
 valgrind --leak-check=full ./a.out
-del .txt, readme, a.out...
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./your_program
+additionally: valgrind --tool=memcheck --leak-check=full --trace-children=yes ./your_program
+
+3. del .txt, readme, a.out...
+
+4. norm
+
+5. check names
+
+6. git add, commit, push
+
+----------------------------------------------------------- -->
 
 # get_next_line
 

@@ -6,7 +6,7 @@
 /*   By: hpolishc <hpolishc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:03:47 by hpolishc          #+#    #+#             */
-/*   Updated: 2025/01/31 20:43:43 by hpolishc         ###   ########.fr       */
+/*   Updated: 2025/02/01 16:52:52 by hpolishc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*ft_read_to_buffer(int fd, char *reserve, char *buffer)
 	char	*temp;
 
 	bytes_read = 1;
-	while (bytes_read > 0)
+	while ((bytes_read > 0) && ((!reserve) || (!ft_strchr(reserve, '\n'))))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
@@ -26,16 +26,14 @@ static char	*ft_read_to_buffer(int fd, char *reserve, char *buffer)
 			free(reserve);
 			return (NULL);
 		}
-		else if (bytes_read == 0)
-			break ;
+		if (bytes_read == 0)
+			return (reserve);
 		buffer[bytes_read] = '\0';
 		if (!reserve)
 			reserve = ft_strdup("");
 		temp = reserve;
 		reserve = ft_strjoin(temp, buffer);
 		free(temp);
-		if (ft_strchr(buffer, '\n'))
-			break ;
 	}
 	return (reserve);
 }
@@ -86,7 +84,6 @@ char	*get_next_line(int fd)
 	reserve = ft_write_line(line);
 	return (line);
 }
-
 /* 
 #include <stdio.h>
 #include <fcntl.h>
@@ -114,8 +111,8 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-} */
-
+}
+ */
 /* test.txt:
 
 1. Empty file.
