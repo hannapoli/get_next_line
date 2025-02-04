@@ -87,6 +87,10 @@ CHECKS (mains):
  * only 3 NECESSARY files!
  * Norminette
 
+ ### Bobus part:
+
+ The function has to be able to handle multiple file descriptors at once. That is, if you have three fds available for reading, you should be able to use get_next_line once on each of them in alternation. It should not lose the reading thread of each of the fds.
+
 
 ## Static variable
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hpolishc <hpolishc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:03:47 by hpolishc          #+#    #+#             */
-/*   Updated: 2025/02/04 14:05:38 by hpolishc         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:05:31 by hpolishc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_read_to_buffer(int fd, char *reserve, char *buffer)
 {
@@ -60,73 +60,70 @@ static char	*ft_write_line(char *line)
 
 char	*get_next_line(int fd)
 {
-	static char	*reserve;
+	static char	*reserve[MAX_FD];
 	char		*line;
 	char		*buffer;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= MAX_FD)
 	{
-		free(reserve);
+		free(reserve[fd]);
 		free(buffer);
-		reserve = NULL;
+		reserve[fd] = NULL;
 		buffer = NULL;
 		return (NULL);
 	}
 	if (!buffer)
 		return (NULL);
-	reserve = ft_read_to_buffer(fd, reserve, buffer);
-	line = reserve;
+	reserve[fd] = ft_read_to_buffer(fd, reserve[fd], buffer);
+	line = reserve[fd];
 	free(buffer);
 	buffer = NULL;
 	if (!line)
 		return (NULL);
-	reserve = ft_write_line(line);
+	reserve[fd] = ft_write_line(line);
 	return (line);
 }
+/* 
+#include <stdio.h>
 
-//#include <stdio.h>
-/*
 int	main(void)
 {
-	int		fd;
-	int		line_count;
-	char	*gnl;
+	int		fd1;
+	int		fd2;
+	char	*line1;
+	char	*line2;
 
-	line_count = 0;
-	fd = open("test.txt", O_RDONLY);
-	if (fd < 0)
+	fd1 = open("test1.txt", O_RDONLY);
+	fd2 = open("test2.txt", O_RDONLY);
+	if ((fd1 < 0) || (fd2 < 0))
 	{
 		perror("Error opening file");
 		return (1);
 	}
-	gnl = get_next_line(fd);
-	while (gnl != NULL)
+	line1 = get_next_line(fd1);
+	line2 = get_next_line(fd2);
+	printf("File 1:\n");
+	while (line1 != NULL)
 	{
-		line_count++;
-		printf("[%d]:%s", line_count, gnl);
-		free(gnl);
-		gnl = get_next_line(fd);
+		printf("%s\n", line1);
+		free(line1);
+		line1 = get_next_line(fd1);
 	}
-	free(gnl);
-	close(fd);
+	free(line1);
+	close(fd1);
+	printf("File 2:\n");
+	while (line2 != NULL)
+	{
+		printf("%s\n", line2);
+		free(line2);
+		line2 = get_next_line(fd2);
+	}
+	free(line2);
+	close(fd2);
 	return (0);
 }
  */
-/* int	main(void)
-{
-	char	*str;
-
-	while (1)
-	{
-		str = get_next_line(STDIN_FILENO);
-		if (str == NULL)
-			break ;
-		printf("%s\n", str);
-		free (str);
-	}
-	return (0);
-} */
 /* test.txt:
 
 1. Empty file.
