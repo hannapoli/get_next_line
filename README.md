@@ -1,9 +1,10 @@
 # get_next_line ✍️
 
 
-## 🚀 Task:
-
+### 🚀 Task:
+---
 Write a function that returns the line read from a file descriptor.
+___
 
 ### 📝 Function name and prototype:
 
@@ -13,20 +14,24 @@ Write a function that returns the line read from a file descriptor.
 
 fd: a file descriptor from which to read.
 
+
 ### ↩️ Return value:
 
 If all goes well: the line that was read.
 On failure or if reading ends: NULL.
 
+
 ### 🛂 Authorised functions:
 
 read, malloc, free.
+
 
 ### 📮 Files to present:
 
  * get_next_line.c, 
  * get_next_line_utils.c (for the standard string functions),
  * get_next_line.h.
+   
 
 ### 📝 Details:
 
@@ -40,11 +45,14 @@ read, malloc, free.
  * Because you will have to read files in get_next_line(), add this option to your compiler call: -D BUFFER_SIZE=n. It will define the buffer size for read(). The buffer size value will be modified in order to test your code.
 
  * Both the buffer size and the line size can have very different values.
+   
 
  ### 🌟 Bonus part:
 
  The function has to be able to handle multiple file descriptors at once. That is, if you have three fds available for reading, you should be able to use get_next_line once on each of them in alternation. It should not lose the reading thread of each of the fds.
 
+ 
+### ⚙️ Essentials:
 
 #### Static variable
 
@@ -52,26 +60,33 @@ read, malloc, free.
 
 It is initialized only once, no matter how many times its function is called, its value is retained and it is accessible through many calls to the function in which it is declared.
 
+
 #### A File Descriptor: int fd
 
 **fd** is an int variable that identifies an open file.
 
-**Standard file descriptors are 3 predefined identifiers used in Unix-like operating systems:**:
+**Standard file descriptors** are 3 predefined identifiers used in Unix-like operating systems:
 
  * 0: standard input (stdin), reading user input from the terminal.
  * 1: standard output (stdout), writing to the terminal.
  * 2: standard error (stderr), writing an error to the terminal.
+   
 
-### Compiling:
+### ▶️ Compiling:
 `cc -Wall -Werror -Wextra -D BUFFER_SIZE=42 your_files.c.`
 
-### Checking leaks:
-MAC: 
+
+### 🔎 Checking leaks:
+MAC:
+
 `leaks --atExit -- ./your_program`
 
 Ubuntu:
+
 `valgrind --leak-check=full ./your_program`
+
 `valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./your_program`
+
 `valgrind --tool=memcheck --leak-check=full --trace-children=yes ./your_program`
 
 
