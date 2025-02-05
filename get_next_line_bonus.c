@@ -6,7 +6,7 @@
 /*   By: hpolishc <hpolishc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:03:47 by hpolishc          #+#    #+#             */
-/*   Updated: 2025/02/04 14:05:31 by hpolishc         ###   ########.fr       */
+/*   Updated: 2025/02/05 09:55:24 by hpolishc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*ft_write_line(char *line)
 	while ((line[len] != '\0') && (line[len] != '\n'))
 		len++;
 	if (line[len] == '\0')
-		return (0);
+		return (NULL);
 	reserve = ft_substr(line, len + 1, ft_strlen(line) - len);
 	if ((!reserve) || (*reserve == '\0'))
 	{
